@@ -20,7 +20,7 @@ int minimumSubsetDiff(vector<int> arr, int sum, int n)
         } //for
     }     //for
 
-    for (int i = n, j = (sum / 2) - 1; j >= 0; j--)
+    for (int i = n, j = (sum / 2); j >= 0; j--)
         if (t[i][j])
             return sum - (2 * j);
     return sum;
