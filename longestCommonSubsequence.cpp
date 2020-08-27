@@ -2,6 +2,7 @@
 using namespace std;
 
 int t[101][101];
+string str[101][101];
 
 int lcs(string x, string y, int n, int m)
 {
@@ -44,6 +45,28 @@ int lcsBottomUp(string x, string y, int n, int m)
     return t[n][m];
 } //lcsBottomUp
 
+string getLCS(string x, string y, int n, int m)
+{
+    string s = "";
+    while (n > 0 && m > 0)
+    {
+        if (x[n - 1] == y[m - 1])
+        {
+            s = x[n - 1] + s;
+            n--;
+            m--;
+        } //if
+        else
+        {
+            if (t[n][m - 1] > t[n - 1][m])
+                m--;
+            else
+                n--;
+        } //else
+    }     //while
+    return s;
+} //getLCS
+
 int main()
 {
     string x, y;
@@ -52,7 +75,8 @@ int main()
     cout << "Longest Common Subsequence length : "
          // << lcs(x, y, x.size(), y.size());
          //  << lcsTopDown(x, y, x.size(), y.size());
-         << lcsBottomUp(x, y, x.size(), y.size());
+         << lcsBottomUp(x, y, x.size(), y.size()) << endl;
 
+    cout << "Longest Common Subsequence : " << getLCS(x, y, x.size(), y.size()) << endl;
     return 0;
 } //main
