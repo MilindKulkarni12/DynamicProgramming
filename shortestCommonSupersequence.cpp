@@ -17,6 +17,41 @@ int shortestCommonSupersequence(string x, string y, int n, int m)
     return n + m - t[n][m];
 } //shortestCommonSupersequence
 
+string getSCS(string x, string y, int n, int m)
+{
+    string s = "";
+    while (n > 0 && m > 0)
+    {
+        if (x[n - 1] == y[m - 1])
+        {
+            s = x[n - 1] + s;
+            n--;
+            m--;
+        } //if
+        else
+        {
+            if (t[n - 1][m] > t[n][m - 1])
+                s = x[--n] + s;
+            else
+                s = y[--m] + s;
+        } //else
+    }     //while
+
+    while (n > 0)
+    {
+        s = x[n - 1] + s;
+        n--;
+    } //while
+
+    while (m > 0)
+    {
+        s = y[m - 1] + s;
+        m--;
+    } //while
+
+    return s;
+} //getSCS
+
 int main()
 {
     string x, y;
@@ -26,7 +61,7 @@ int main()
     n = x.length();
     m = y.length();
 
-    cout << "Shortest Common Subsequence Length : " << shortestCommonSupersequence(x, y, n, m) << endl;
-
+    cout << "Shortest Common Subsequence Length : " << shortestCommonSupersequence(x, y, n, m) << endl
+         << "Shortest Common Subsequence : " << getSCS(x, y, n, m) << endl;
     return 0;
 } //main
